@@ -7,5 +7,7 @@ clean:
 
 setup:
 	go get github.com/jteeuwen/go-bindata/...
+	go get -d github.com/elazarl/go-bindata-assetfs
+	go get -d github.com/miketheprogrammer/go-thrust
 
 .PHONY: clean setup
