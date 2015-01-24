@@ -14,12 +14,11 @@ func main() {
 		panic(err)
 	}
 	defer listener.Close()
-	address := listener.Addr().String()
 
 	thrust.InitLogger()
 	thrust.Start()
 
-	thrustWindow := thrust.NewWindow("http://"+address+"/browser.html", nil)
+	thrustWindow := thrust.NewWindow("http://"+listener.Addr().String()+"/browser.html", nil)
 	thrustWindow.Show()
 	thrustWindow.Maximize()
 	thrustWindow.Focus()
@@ -27,5 +26,5 @@ func main() {
 	http.Handle("/", http.FileServer(&assetfs.AssetFS{
 		Asset: Asset, AssetDir: AssetDir,
 	}))
-	http.ListenAndServe(address, nil)
+	http.Serve(listener, nil)
 }
